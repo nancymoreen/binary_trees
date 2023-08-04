@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include "binary_trees.h"
 
 /**
@@ -8,22 +7,21 @@
  *
  * Return: Pointer to the created node, or NULL on failure or if parent is NULL
  */
+
 binary_tree_t *binary_tree_insert_left(binary_tree_t *parent, int value)
 {
+	binary_tree_t *new_node;
+
 	if (parent == NULL)
 		return (NULL);
+	new_node = binary_tree_node(parent, value);
 
-	binary_tree_t *new_left = binary_tree_node(parent, value);
-
-	if (new_left == NULL)
+	if (new_node == NULL)
 		return (NULL);
 
+	new_node->left = parent->left;
 	if (parent->left != NULL)
-	{
-		new_left->left = parent->left;
-		parent->left->parent = new_left;
-	}
-
-	parent->left = new_left;
-	return (new_left);
+		parent->left->parent = new_node;
+	parent->left = new_node;
+	return (new_node);
 }
